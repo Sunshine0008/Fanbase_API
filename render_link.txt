@@ -1,2 +1,2 @@
 Render Deployment Link:
-https://your-blackpink-api.onrender.com
+https://fanbase-api-black-pink.onrender.com/
