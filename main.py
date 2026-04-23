@@ -41,9 +41,72 @@ def init_db():
 
 init_db()
 
-@app.get("/")
+from fastapi.responses import HTMLResponse
+
+@app.get("/", response_class=HTMLResponse)
 def home():
-    return {"message": "BLACKPINK Fanbase API is running"}
+    return """
+    <html>
+    <head>
+        <title>BLACKPINK Fanbase API</title>
+        <style>
+            body {
+                font-family: Arial;
+                text-align: center;
+                margin-top: 50px;
+                background-color: #ffe4ec;
+            }
+            h1 {
+                color: #ff1493;
+            }
+            button {
+                padding: 10px 20px;
+                margin: 10px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>BLACKPINK Fanbase API</h1>
+
+        <button onclick="loadCharacters()">Show Characters</button>
+        <button onclick="loadActors()">Show Actors</button>
+
+        <ul id="output"></ul>
+
+        <script>
+            async function loadCharacters() {
+                let res = await fetch('/characters');
+                let data = await res.json();
+                let output = document.getElementById('output');
+                output.innerHTML = "";
+                data.forEach(c => {
+                    let li = document.createElement('li');
+                    li.textContent = c.name + " - " + c.role;
+                    output.appendChild(li);
+                });
+            }
+
+            async function loadActors() {
+                let res = await fetch('/actors');
+                let data = await res.json();
+                let output = document.getElementById('output');
+                output.innerHTML = "";
+                data.forEach(a => {
+                    let li = document.createElement('li');
+                    li.textContent = a.name;
+                    output.appendChild(li);
+                });
+            }
+        </script>
+    </body>
+    </html>
+    """
     
 @app.get("/characters")
 def get_characters():
