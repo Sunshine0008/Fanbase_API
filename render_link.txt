@@ -1,2 +1,2 @@
-Your Render Link:
-https://your-app-name.onrender.com
+Render Deployment Link:
+https://your-blackpink-api.onrender.com
