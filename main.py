@@ -41,6 +41,10 @@ def init_db():
 
 init_db()
 
+@app.get("/")
+def home():
+    return {"message": "BLACKPINK Fanbase API is running"}
+    
 @app.get("/characters")
 def get_characters():
     conn = get_db()
